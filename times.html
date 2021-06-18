@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    </head>
+    <body>
+        <input id="num">
+        <button onclick="makeTimes()">go</button>
+        <p id="times"></p>
+    </body>
+    <script>
+        function makeTimes() {
+            var iHandle = document.getElementById('num');
+            var pHandle = document.getElementById('times)');
+            var mynum = parseInt(iHandle.value);
+            console.log(mynum);
+            if (mynum == "" || typeof(mynum) != NaN) {
+                pHandle.innerHTML = "please enter a number"
+            }
+            var myHTML = mynum +"Times Tables";
+            for (var i = 0; i < 13; i++) {
+                myHTML = myHTML + (i * mynum) + "<br>"
+            }
+            pHandle.innerHTML = myHTML;
+        }
+    </script>
+</html>
