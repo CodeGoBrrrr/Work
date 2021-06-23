@@ -53,7 +53,7 @@
             <div class="col s12 m6">
               <div class="card">
                 <div class="card-content">
-                  <span class="card-title">Card Title</span>
+                  <span class="card-title">Covid graph</span>
                   <div id="map" style="width:100%; height:65%;"></div>
                 </div>
               </div>
@@ -117,6 +117,13 @@
             myHTML = myHTML + "</ul>";
             divHandle.innerHTML = myHTML;
           }
+          var map = L.map('map').setView([30.2741, 120.1551], 50);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+L.marker([30.2741, 120.1551]).addTo(map)
+.bindPopup('<h1>A pretty EE.</h1> EEEE.')
+.openPopup();
           document.addEventListener('DOMContentLoaded', function() {
           var elems = document.querySelectorAll('.fixed-action-btn');
           var instances = M.FloatingActionButton.init(elems, {
@@ -125,13 +132,6 @@
             });
         });
         
-        var map = L.map('map').setView([30.2741, 120.1551], 50);
-
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-
-L.marker([30.2741, 120.1551]).addTo(map)
-.bindPopup('<h1>A pretty EE.</h1> EEEE.')
-.openPopup();
 
       
         </script>
