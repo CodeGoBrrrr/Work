@@ -129,8 +129,8 @@
 
             var data = response.data.data;
             for (var i=0; i<data.length; i++){
-              myradius = mydata[i].confirmed/1000
-              l.circle([data[i].latitude, [data[i].longtitude],{color:"red"; radius:myradius})
+              myradius = mydata[i].confirmed / 1000
+              l.circle([data[i].latitude, [data[i].longtitude],{color:"red", radius:myradius}).addTo(map)
             }
           }
 
