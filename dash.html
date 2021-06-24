@@ -118,29 +118,35 @@
             myHTML = myHTML + "</ul>";
             divHandle.innerHTML = myHTML;
           }
-          function pushMap(response){
-            var map = L.map('map').setView([30.2741, 120.1551], 5);
+        function pushMap(response) {
+      // setview lat, lon and zoom
+      var map = L.map('map').setView([30.2741, 120.1551], 3);
 
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
-            //L.marker([30.2741, 120.1551]).addTo(map)
-            //.bindPopup('<h1>A pretty EE.</h1> EEEE.')
-            //.openPopup();
+      //L.marker([30.2741, 120.1551]).addTo(map)
+      //.bindPopup('<h1>A pretty CSS3 popup.</h1> Easily customizable.')
+      //.openPopup();
 
-            var data = response.data.data;
-            for (var i=0; i<data.length; i++){
-              myradius = mydata[i].confirmed / 20
-              L.circle([data[i].latitude, data[i].longtitude],{color:"red", radius:myradius}).addTo(map)
-            }
-          }
+      var mydata = response.data.data; // create new var
+      for (var i=0;i<mydata.length;i++) {
+        myradius = mydata[i].confirmed / 20
+        popup = mydata[i].location + "<br>" + mydata[i].confirmed;
+        L.circle([mydata[i].latitude,mydata[i].longitude],{color:"red",radius:myradius})
+        .addTo(map).bindPopup(popup);
+      }
 
-          document.addEventListener('DOMContentLoaded', function() {
-          var elems = document.querySelectorAll('.fixed-action-btn');
-          var instances = M.FloatingActionButton.init(elems, {
-          direction: 'up',
-          hoverEnabled: false
-            });
-        });
+    }
+
+    function pushData(response) {
+      var divHandle = document.getElementById('list');
+      var myHTML = "<ul class='collection'>";
+      for (var i = 0; i< 10; i++) {
+        myHTML = myHTML + "<li class='collection-item'>" + response.data.data[i].location + "</li>";
+      }
+      myHTML = myHTML + "</ul>";
+      divHandle.innerHTML = myHTML;
+    }
         
 
       
