@@ -23,14 +23,29 @@
   </body>
 
   <script>
-    var map = L.map('map').setView([30.2741, 120.1551], 50);
+    function pushMap(response){
+            var map = L.map('map').setView([30.2741, 120.1551], 5);
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
-    L.marker([30.2741, 120.1551]).addTo(map)
-    .bindPopup('<h1>A pretty EE.</h1> EEEE.')
-    .openPopup();
+            //L.marker([30.2741, 120.1551]).addTo(map)
+            //.bindPopup('<h1>A pretty EE.</h1> EEEE.')
+            //.openPopup();
 
+            var data = response.data.data;
+            for (var i=0; i<data.length; i++){
+              myradius = mydata[i].confirmed / 20
+              l.circle([data[i].latitude, [data[i].longtitude],{color:"red", radius:myradius}).addTo(map)
+            }
+          }
+
+          document.addEventListener('DOMContentLoaded', function() {
+          var elems = document.querySelectorAll('.fixed-action-btn');
+          var instances = M.FloatingActionButton.init(elems, {
+          direction: 'up',
+          hoverEnabled: false
+            });
+        });
   </script>
 
 </html>
