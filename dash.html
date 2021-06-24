@@ -130,7 +130,7 @@
             var data = response.data.data;
             for (var i=0; i<data.length; i++){
               myradius = mydata[i].confirmed / 20
-              l.circle([data[i].latitude, [data[i].longtitude],{color:"red", radius:myradius}).addTo(map)
+              L.circle([data[i].latitude, [data[i].longtitude],{color:"red", radius:myradius}).addTo(map)
             }
           }
 
