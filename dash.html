@@ -73,7 +73,7 @@
       <div class="col s12 m6">
         <div class="card">
           <div class="card-content">
-            <span class="card-title">Covid graph go BRRRRRR</span>
+            <span class="card-title">Pies are THICC</span>
             <canvas id="pie-chart" width="800" height="450"></canvas>
           </div>
         </div>
@@ -140,10 +140,35 @@
       pushData(response);
       pushMap(response);
       pushChart(response);
+      pushPie(response)
     })
+    function pushPie(response){
+      var data = response.data.data;
+      var totconf = 0;
+      for(i=3;i<data.length;i++){
+        totconf = totconf + data[i].confirmed;
+      }
+      new Chart(document.getElementById("pie-chart"), {
+    type: 'pie',
+    data: {
+      labels: [data[0].location,data[1].location,data[2].location,"rest of the world pog"]]
+      datasets: [{
+        label: "Confirmed covid case D:",
+        backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9"],
+        data: [data[0].confirmed,data[1].confirmed,data[2].confirmed,totconf]
+      }]
+    },
+      options: {
+        title: {
+          display: true,
+          text: 'Confirmed covid case rn'
+          }
+        }
+      });
+    }
 
     function pushChart(response) {
-      // Bar chart
+      
       var mydata = response.data.data;
       var countries = [];
       var confirmed = [];
