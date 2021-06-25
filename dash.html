@@ -1,153 +1,148 @@
-      <html>
+<html>
 
-        <head>
-          <!-- Compiled and minified CSS -->
-          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-          <!-- Compiled and minified JavaScript -->
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-          <!-- JS for Axios -->
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
-          <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-          <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-          <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-          <title>COVID Dashboard</title>
-          <style>
-            body {
-              background-color:cyan;
-            }
-          </style>
-        </head>
-      
-        <body>
-          
-          <nav>
-            <div class="nav-wrapper cyan">
-              <a href="#" class="brand-logo blue">Totally A logo haha</a>
-              <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a href="map.html">Full map</a></li>
-                <li><a href="home.html">Even more nothingness</a></li>
-                <li><a href="Index.html">The most nothing</a></li>
-              </ul>
-              <div class="col s12 m2">
-                  <p class="z-depth-4">z-depth-4</p>
-              </div>
-            </div>
-          </nav>
-          <div class="progress">
-              <div class="indeterminate"></div>
-          </div>
-         
-          <div class="row">
-
-            <div class="col s12 m6">
-              <div class="card">
-                <div class="card-content">
-                  <span class="card-title"> A lot of Covid Data, like, a lot a lot. </span>
-                  <p>This is the graph that contains which country have the most covid cases.</p>
-                  <i class="material-icons">warning</i>
-                  <div id="list"></div>
-                </div>
-              </div>
-            </div>
-      
-            <div class="col s12 m6">
-              <div class="card">
-                <div class="card-content">
-                  <span class="card-title">Covid graph go BRRRRRR</span>
-                  <div id="map" style="width:100%; height:65%;"></div>
-                </div>
-              </div>
-            </div>
-      
-          </div>
-          <div class="row">
-            <div class="col s12 m6">
-              <div class="card">
-                <div class="card-content">
-                  <span class="card-title">Graph makes me go yes</span>
-                  <canvas id="bar-chart" width="800" height="450"></canvas>
-                </div>
-              </div>
-            </div>
-          </div>
-      
-          <div class="progress">
-              <div class="indeterminate"></div>
-          </div>
-
-          <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-              <a class="btn-floating btn-large red">
-                <i class="material-icons">mode_edit</i>
-              </a>
-              <ul>
-                <li>
-                  <a class="btn-floating red">
-                    <i class="material-icons">insert_chart</i>
-                  </a>
-                </li>
-                <li>
-                  <a class="btn-floating yellow darken-1">
-                    <i class="material-icons">format_quote</i>
-                  </a>
-                </li>
-                <li>
-                  <a class="btn-floating green">
-                    <i class="material-icons">publish</i>
-                  </a>
-                </li>
-                <li>
-                  <a class="btn-floating blue">
-                    <i class="material-icons">attach_file</i>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-    
-
-        </body>
-      
-        <script>
-      
-          axios.get("https://www.trackcorona.live/api/countries").then(response => {
-            //console.log(response);
-            response.data.data.sort(function(a,b) {
-              return b.confirmed - a.confirmed;
-            })
-            //console.log(response.data.data);
-            pushData(response);
-            pushMap(response);
-            pushChart(response);
-          })
-      
-          function pushData(response) {
-            var divHandle = document.getElementById('list');
-            var myHTML = "<ul class='collection'>";
-            for (var i = 0; i< 10; i++) {
-              myHTML = myHTML + "<li class='collection-item'>" + response.data.data[i].location + "</li>";
-            }
-            myHTML = myHTML + "</ul>";
-            divHandle.innerHTML = myHTML;
-          }
-        function pushMap(response) {
-      // setview lat, lon and zoom
-      var map = L.map('map').setView([30.2741, 120.1551], 3);
-
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-
-      //L.marker([30.2741, 120.1551]).addTo(map)
-      //.bindPopup('<h1>A pretty CSS3 popup.</h1> Easily customizable.')
-      //.openPopup();
-
-      var mydata = response.data.data; // create new var
-      for (var i=0;i<mydata.length;i++) {
-        myradius = mydata[i].confirmed / 20
-        popup = mydata[i].location + "<br>" + mydata[i].confirmed;
-        L.circle([mydata[i].latitude,mydata[i].longitude],{color:"red",radius:myradius})
-        .addTo(map).bindPopup(popup);
+  <head>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- JS for Axios -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <title>COVID Dashboard</title>
+    <style>
+      body {
+        background-color:cyan;
       }
-      function pushChart(response) {
+    </style>
+  </head>
+
+  <body>
+    
+    <nav>
+      <div class="nav-wrapper cyan">
+        <a href="#" class="brand-logo blue">Totally A logo haha</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><a href="map.html">Full map</a></li>
+          <li><a href="home.html">Even more nothingness</a></li>
+          <li><a href="Index.html">The most nothing</a></li>
+        </ul>
+        <div class="col s12 m2">
+            <p class="z-depth-4">z-depth-4</p>
+        </div>
+      </div>
+    </nav>
+    <div class="progress">
+        <div class="indeterminate"></div>
+    </div>
+   
+    <div class="row">
+
+      <div class="col s12 m6">
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title"> A lot of Covid Data, like, a lot a lot. </span>
+            <p>This is the graph that contains which country have the most covid cases.</p>
+            <i class="material-icons">warning</i>
+            <div id="list"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col s12 m6">
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">Covid graph go BRRRRRR</span>
+            <div id="map" style="width:100%; height:65%;"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="col s12 m6">
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">Graph makes me go yes</span>
+            <canvas id="bar-chart" width="800" height="450"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col s12 m6">
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">Covid graph go BRRRRRR</span>
+            <canvas id="pie-chart" width="800" height="450"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="progress">
+        <div class="indeterminate"></div>
+    </div>
+
+    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+        <a class="btn-floating btn-large red">
+          <i class="material-icons">mode_edit</i>
+        </a>
+        <ul>
+          <li>
+            <a class="btn-floating red">
+              <i class="material-icons">insert_chart</i>
+            </a>
+          </li>
+          <li>
+            <a class="btn-floating yellow darken-1">
+              <i class="material-icons">format_quote</i>
+            </a>
+          </li>
+          <li>
+            <a class="btn-floating green">
+              <i class="material-icons">publish</i>
+            </a>
+          </li>
+          <li>
+            <a class="btn-floating blue">
+              <i class="material-icons">attach_file</i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+
+  </body>
+
+  <script>
+
+    axios.get("https://www.trackcorona.live/api/countries").then(response => {
+      //console.log(response);
+      response.data.data.sort(function(a,b) {
+        return b.confirmed - a.confirmed;
+      })
+
+      //console.log(response.data.data);
+      pushData(response);
+      pushMap(response);
+      pushChart(response);
+    })
+
+    axios.get("https://www.trackcorona.live/api/countries").then(response => {
+      //console.log(response);
+      response.data.data.sort(function(a,b) {
+        return b.confirmed - a.confirmed;
+      })
+      //console.log(response.data.data);
+      pushData(response);
+      pushMap(response);
+      pushChart(response);
+    })
+
+    function pushChart(response) {
       // Bar chart
       var mydata = response.data.data;
       var countries = [];
@@ -179,6 +174,26 @@
       });
     }
 
+    function pushMap(response) {
+      // setview lat, lon and zoom
+      var map = L.map('map').setView([45.07, -67.05], 3);
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+      //L.marker([45.07, -67.05]).addTo(map)
+      //.bindPopup('<h1>A pretty CSS3 popup.</h1> Easily customizable.')
+      //.openPopup();
+
+      var mydata = response.data.data; // create new var
+      for (var i=0;i<mydata.length;i++) {
+        myradius = mydata[i].confirmed / 20
+        popup = mydata[i].location + "<br>" + mydata[i].confirmed;
+        L.circle([mydata[i].latitude,mydata[i].longitude],{color:"red",radius:myradius})
+        .addTo(map).bindPopup(popup);
+      }
+
+    }
+
     function pushData(response) {
       var divHandle = document.getElementById('list');
       var myHTML = "<ul class='collection'>";
@@ -188,10 +203,6 @@
       myHTML = myHTML + "</ul>";
       divHandle.innerHTML = myHTML;
     }
-        
+  </script>
 
-      
-        </script>
-      
-      </html>
-      
+</html>
